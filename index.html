@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>記憶翻牌遊戲</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <img src="logo.png" class="logo">
+    <h1>記憶翻牌遊戲</h1>
+    <p>找出所有相同的卡片！</p>
+</header>
+
+<div class="game-info">
+    ⏱ 時間：<span id="timer">0</span> 秒  
+    🎯 次數：<span id="moves">0</span>
+</div>
+
+<div class="grid" id="gameBoard"></div>
+
+<button onclick="restartGame()">重新開始</button>
+
+<script src="script.js"></script>
+</body>
+</html>
