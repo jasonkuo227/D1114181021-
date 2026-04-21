@@ -16,6 +16,9 @@ function startGame() {
     const board = document.getElementById("gameBoard");
     board.innerHTML = "";
 
+    // ⭐ 每次開始都隱藏勝利畫面（修正重點）
+    document.getElementById("winMessage").classList.add("hidden");
+
     cards = shuffle([...symbols, ...symbols]);
     matchedPairs = 0;
 
@@ -56,6 +59,7 @@ function checkMatch() {
     if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
         matchedPairs++;
 
+        // ⭐ 全部配對完成才顯示勝利
         if (matchedPairs === symbols.length) {
             clearInterval(timerInterval);
 
