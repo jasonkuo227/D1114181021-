@@ -1,11 +1,12 @@
 const symbols = ["🍎","🍌","🍇","🍉","🍒","🍍","🥝","🍋"];
-let cards = [...symbols, ...symbols];
+let cards = [];
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 let moves = 0;
 let time = 0;
 let timerInterval;
+let matchedPairs = 0;
 
 function shuffle(array) {
     return array.sort(() => 0.5 - Math.random());
@@ -14,7 +15,9 @@ function shuffle(array) {
 function startGame() {
     const board = document.getElementById("gameBoard");
     board.innerHTML = "";
-    cards = shuffle(cards);
+
+    cards = shuffle([...symbols, ...symbols]);
+    matchedPairs = 0;
 
     cards.forEach(symbol => {
         const card = document.createElement("div");
@@ -51,6 +54,20 @@ function flipCard() {
 
 function checkMatch() {
     if (firstCard.dataset.symbol === secondCard.dataset.symbol) {
+        matchedPairs++;
+
+        if (matchedPairs === symbols.length) {
+            clearInterval(timerInterval);
+
+            setTimeout(() => {
+                const msg = document.getElementById("winMessage");
+                const stats = document.getElementById("finalStats");
+
+                stats.innerText = `時間：${time} 秒 / 步數：${moves}`;
+                msg.classList.remove("hidden");
+            }, 300);
+        }
+
         resetTurn();
     } else {
         lockBoard = true;
@@ -72,8 +89,13 @@ function restartGame() {
     clearInterval(timerInterval);
     time = 0;
     moves = 0;
+    matchedPairs = 0;
+
     document.getElementById("timer").innerText = 0;
     document.getElementById("moves").innerText = 0;
+
+    document.getElementById("winMessage").classList.add("hidden");
+
     startGame();
 }
 
